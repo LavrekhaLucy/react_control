@@ -1,13 +1,14 @@
 import {useEffect, useState} from "react";
 import type {IMovie} from "../../models/IGenres/IMovie.ts";
-import {getMovies} from "../../services/api.service.ts";
-import {MovieCard} from "./movie-card/MovieCard.tsx";
 
-const MoviesListCard = () => {
+import {MovieCard} from "./movie-card/MovieCard.tsx";
+import {getMovie} from "../../services/api.service.ts";
+
+const MovieListCard = () => {
     const [movies, setMovies] = useState<IMovie[]>([]);
 
     useEffect(() => {
-        getMovies().then(res => setMovies(res.data.results));
+        getMovie().then(res => setMovies(res.data.results));
     }, []);
 
     return (
@@ -21,4 +22,4 @@ const MoviesListCard = () => {
     );
 };
 
-export default MoviesListCard;
+export default MovieListCard;

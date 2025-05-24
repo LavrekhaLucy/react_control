@@ -1,7 +1,6 @@
 import axios from 'axios';
 import type {IMoviesResponseModel} from "../models/IGenres/IMoviesResponseModel.ts";
-const API_KEY = 'd349b5958b890e2060a44903f6b43154';
-const BASE_URL = 'https://api.themoviedb.org/3';
+import {API_KEY, BASE_URL} from "../components/user-info/UserInfo.ts";
 
 
 
@@ -25,7 +24,7 @@ export const getMovies = (page = 1) =>
     });
 
 
-export const getMovie = (id: number): Promise<IMoviesResponseModel> =>
+export const getMovie = (id: number) =>
     axios.get(`${BASE_URL}/movie/${id}`, {
                params: { api_key: API_KEY },
                 })
@@ -39,6 +38,9 @@ export const getGenres = () =>
             api_key: API_KEY,
         },
     });
+
+
+
 
 export const searchMovies = () =>
     axios.get(`${BASE_URL}/search/movie`, {

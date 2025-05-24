@@ -1,10 +1,12 @@
-import MoviesListCard from "../components/movies-list-card/MoviesListCard.tsx";
+import MovieListCard from "../components/movies-list-card/MovieListCard.tsx";
 
 
 const MovieDetailsPage = () => {
     return (
         <div>
-            <MoviesListCard/>
+
+            <MovieListCard/>
+
         </div>
     );
 };

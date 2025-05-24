@@ -4,7 +4,6 @@ import {getMovies} from "../../services/api.service.ts";
 import {MovieList} from "./movie-list/MovieList.tsx";
 
 
-
 const MoviesList = () => {
     const [movies, setMovies] = useState<IMovie[]>([]);
 
@@ -15,6 +14,7 @@ const MoviesList = () => {
     return (
         <div>
             <h1>Popular Movies</h1>
+
 
             {
                 movies.map(value => <MovieList key ={value.id} value={value} />)

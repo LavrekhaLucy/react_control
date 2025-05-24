@@ -6,10 +6,13 @@ import App from "../App.tsx";
 
 export const routes =createBrowserRouter([
 
-         {path:"/", element: <App />, children:[
-         {path:"movie", element: <MoviesPage /> },
-         {path: "movie/:id", element:  <MovieDetailsPage/>}
-        ] }
+    {
+        path: "/", element: <App/>, children: [
+            {path: "movie", element: <MoviesPage/>},
+            {path: "movie/:id", element: <MovieDetailsPage/>}
+    ]
+            }
+
 
 ])
 
