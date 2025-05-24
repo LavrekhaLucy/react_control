@@ -2,12 +2,21 @@ import {Link} from "react-router-dom";
 
 const Menu = () => {
     return (
-        <ul>
-            <li><Link to={'/'}>Home</Link></li>
-            <li><Link to={'movie'}>Movie</Link></li>
-            <li><Link to={'/movie/:id'}>Movie details</Link></li>
-        </ul>
+
+
+            <>
+                <h2 className="text-xl font-bold mb-4">Menu</h2>
+                <nav className="space-y-2">
+                    <Link to="/" className="block hover:text-yellow-300">Main</Link>
+                    <Link to="/movie" className="block hover:text-yellow-300">Movies</Link>
+                    <Link to="/movie/:id" className="block hover:text-yellow-300">Movie Details</Link>
+                </nav>
+            </>
+
+
+
     );
+
 };
 
 export default Menu;
