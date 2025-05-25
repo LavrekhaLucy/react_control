@@ -1,7 +1,6 @@
 import {Outlet} from "react-router-dom";
 import SideBar from "./components/side-bar/SideBar.tsx";
 import Header from "./components/header/Header.tsx";
-import Pagination from "./pagination/Pagination.tsx";
 
 
 function App() {
@@ -12,9 +11,7 @@ function App() {
 
         <Header/>
         <SideBar/>
-         <Outlet/>
-        <Pagination/>
-
+        <Outlet/>
     </div>
 
 
