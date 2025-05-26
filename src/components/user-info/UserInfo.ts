@@ -1,7 +1,6 @@
- const apiKey = import.meta.env.VITE_API_KEY;
-export const API_KEY = apiKey;
+import {apiKey, baseUrl} from "../constants/info.ts";
 
- const baseUrl = import.meta.env.VITE_BASE_URL;
-export const BASE_URL = baseUrl;
+export const API_KEY = apiKey;
+export const BASE_URL =  baseUrl;
 
 
