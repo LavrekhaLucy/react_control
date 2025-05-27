@@ -1,27 +1,35 @@
-import {useEffect, useState} from 'react';
-import {getMovies} from "../../services/api.service.ts";
+import {useEffect} from 'react';
+import {useAppDispatch, useAppSelector} from "../store/store.ts";
+import {movieActions} from "../../slices/movieSlice.ts";
 import {MovieList} from "./movie-list/MovieList.tsx";
-import type {IMovie} from "../../models/IGenres/IMovie.ts";
 
 
 const MoviesList = () => {
-    const [movies, setMovies] = useState<IMovie[]>([]);
 
-    useEffect(() => {
-        getMovies().then(value =>setMovies(value.results));
+    const dispatch = useAppDispatch();
+    const movies = useAppSelector(state => state.movieStoreSlice.movies);
 
-    }, []);
+    useEffect(()=>{
+
+        dispatch(movieActions.loadMovies());
+
+    },[]);
+    if (!movies) return <p>Loading...</p>;
 
     return (
         <div>
-            <h1 className='font-serif text-4xl'>Popular Movies</h1>
+            <div style={{display: 'flex', justifyContent: 'center',alignItems: 'center'}}>
+                <h1 className='font-serif text-5xl text-gray-800'>Popular Movies</h1>
+            </div>
+
+                {
+                    movies.results.map((movie) => <MovieList key={movie.id} movie = {movie}/>)
+                }
 
 
-            {
-                movies.map(value => <MovieList key ={value.id} value={value} />)
-            }
         </div>
     );
 };
 
 export default MoviesList;
+

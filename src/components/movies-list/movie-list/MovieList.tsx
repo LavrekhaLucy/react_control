@@ -1,23 +1,43 @@
 import type {FC} from "react";
-import type {IMovie} from "../../../models/IGenres/IMovie.ts";
+import type {IMovie} from "../../../models/IMovies/IMovie.ts";
 import {Link} from "react-router-dom";
+import {IMAGE_BASE_URL} from "../../user-info/UserInfo.ts";
+
 
 type MoviePropsType = {
-    value: IMovie,
+    movie: IMovie,
 }
-export const MovieList:FC<MoviePropsType> = ({value}) => (
+
+export const MovieList:FC<MoviePropsType> = ({movie}) => (
 
 
-    <div className="movies-list grid grid-cols-4 grid-rows-8">
-        <h1 className='text-2xl'>{value.title}</h1>
 
-        <h2>{value.poster_path}</h2>
-        <p>Рейтинг: {value.vote_average}</p>
 
-        <Link to={`/movie/${value.id}`}>
-            <button className='border-2 border-b-inherit rounded-sm '> more detail </button>
-        </Link>
+        <div style={{
+            display: 'flex',
+           flexDirection:'column',
+        }}>
 
-    </div>
+
+            <div>
+                <img
+                src={`${IMAGE_BASE_URL}/w200${movie.poster_path}`}
+                alt={movie.title}
+            /></div>
+
+
+            <div>
+
+                <Link to={`/movie/${movie.id}`}>
+                    <h1 className='text-2xl hover:text-blue-500'>{movie.title}</h1>
+                </Link>
+
+
+                <p>{movie.release_date}</p>
+                <p>Рейтинг: {movie.vote_average}</p>
+            </div>
+
+        </div>
+
+
 );
-

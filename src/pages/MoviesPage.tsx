@@ -7,6 +7,7 @@ const MoviesPage = () => {
         <div>
 
             <MoviesList/>
+
             <Outlet/>
 
 
