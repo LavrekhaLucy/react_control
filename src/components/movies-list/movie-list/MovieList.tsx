@@ -34,7 +34,7 @@ export const MovieList:FC<MoviePropsType> = ({movie}) => (
 
 
                 <p>{movie.release_date}</p>
-                <p>Рейтинг: {movie.vote_average}</p>
+                <p>Rating: {movie.vote_average}</p>
             </div>
 
         </div>

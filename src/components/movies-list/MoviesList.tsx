@@ -13,8 +13,11 @@ const MoviesList = () => {
 
         dispatch(movieActions.loadMovies());
 
-    },[]);
-    if (!movies) return <p>Loading...</p>;
+    },[dispatch]);
+
+    if (!movies || !Array.isArray(movies)) {
+        return <p>Loading...</p>;
+    }
 
     return (
         <div>
@@ -23,7 +26,7 @@ const MoviesList = () => {
             </div>
 
                 {
-                    movies.results.map((movie) => <MovieList key={movie.id} movie = {movie}/>)
+                    movies.map((movie) => <MovieList key={movie.id} movie = {movie}/>)
                 }
 
 

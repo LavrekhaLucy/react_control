@@ -1,6 +1,7 @@
-
-
 const Header = () => {
+    // const [value, setValue] = useState('');
+
+
 
     return (
         <div className="w-auto has-placeholder-shown:">
@@ -15,7 +16,10 @@ const Header = () => {
                         name="search"
                         placeholder="Search..."
                         className="bg-white h-10 px-10 pr-4 rounded-full text-sm focus:outline-none border"
+                        // onChange={(event) => setValue(event.target.value)}
                     />
+
+
                     <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
                         <svg className="h-5 w-5 text-gray-500" fill="none" stroke="currentColor" strokeWidth="2"
                              viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

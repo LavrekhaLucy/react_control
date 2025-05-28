@@ -1,11 +1,11 @@
-// import {MovieDetailCard} from "../components/movies-list-card/MovieDetailCard.tsx";
+import {MovieDetailCard} from "../components/movies-detail-card/MovieDetailCard.tsx";
 
 
 const MovieDetailsPage = () => {
     return (
         <div>
 
-            {/*<MovieDetailCard/>*/}
+            <MovieDetailCard/>
 
         </div>
     );

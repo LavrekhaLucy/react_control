@@ -3,6 +3,7 @@ import {API_KEY, BASE_URL} from "../components/user-info/UserInfo.ts";
 import type {IMoviesResponseModel} from "../models/IMovies/IMoviesResponseModel.ts";
 import type {IMovie} from "../models/IMovies/IMovie.ts";
 import type {IPosterResponseModel} from "../models/IImages/IPosterResponseModel.ts";
+import type {IGenresResponseModel} from "../models/IGenres/IGenresResponseModel.ts";
 
 
 const axiosInstance = axios.create({
@@ -35,12 +36,16 @@ export const getImage = async (id:number):Promise<IPosterResponseModel> => {
 }
 
 
-//
-// export const getGenres = async ():Promise<IGenresResponseModel> => {
-//     const {data} = await axiosInstance.get<IGenresResponseModel>(`/genre/movie/list?language=en`);
-//     return data;
-// }
 
+export const getGenres = async ():Promise<IGenresResponseModel> => {
+    const {data} = await axiosInstance.get<IGenresResponseModel>(`/genre/movie/list?language=en`);
+    return data;
+}
+
+export const getMoviesByGenre = async (genreId: number): Promise<IMovie[]> => {
+    const {data} = await axiosInstance.get(`/movie_with_genres=${genreId}`);
+    return data.results;
+};
 
 
 
