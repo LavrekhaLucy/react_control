@@ -1,7 +1,8 @@
 import type {FC} from "react";
 import type {IMovie} from "../../../models/IMovies/IMovie.ts";
-import {Link} from "react-router-dom";
+import StarRatings from "react-star-ratings";
 import {IMAGE_BASE_URL} from "../../user-info/UserInfo.ts";
+import {Link} from "react-router-dom";
 
 
 type MoviePropsType = {
@@ -9,8 +10,6 @@ type MoviePropsType = {
 }
 
 export const MovieList:FC<MoviePropsType> = ({movie}) => (
-
-
 
 
         <div style={{
@@ -22,8 +21,8 @@ export const MovieList:FC<MoviePropsType> = ({movie}) => (
             <div>
                 <img
                 src={`${IMAGE_BASE_URL}/w200${movie.poster_path}`}
-                alt={movie.title}
-            /></div>
+                alt={movie.title}/>
+            </div>
 
 
             <div>
@@ -31,13 +30,31 @@ export const MovieList:FC<MoviePropsType> = ({movie}) => (
                 <Link to={`/movie/${movie.id}`}>
                     <h1 className='text-2xl hover:text-blue-500'>{movie.title}</h1>
                 </Link>
+            </div>
 
 
                 <p>{movie.release_date}</p>
-                <p>Rating: {movie.vote_average}</p>
-            </div>
+            <StarRatings
+                rating={movie.vote_average / 2}
+                starRatedColor="#facc15"
+                starEmptyColor="#e5e7eb"
+                starDimension="20px"
+                starSpacing="2px"
+                numberOfStars={5}
+                name={`rating-${movie.id}`}
+            />
 
-        </div>
+
+            </div> );
 
 
-);
+
+
+
+
+
+            {/*    <p>Rating: {movie.vote_average}</p>*/}
+
+
+
+

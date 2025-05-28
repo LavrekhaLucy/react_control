@@ -1,23 +1,28 @@
 import {createAsyncThunk, createSlice, type PayloadAction} from "@reduxjs/toolkit";
 import {getMovies, getMoviesByGenre} from "../services/api.service.ts";
 import type {IMovie} from "../models/IMovies/IMovie.ts";
+import type {IMoviesResponseModel} from "../models/IMovies/IMoviesResponseModel.ts";
 
 
 type movieSliceType = {
     movies: IMovie[];
+    total_pages: number;
     moviesByGenre: IMovie[]
 };
-const initMovieSliceState: movieSliceType = {movies:[],moviesByGenre:[]};
+const initMovieSliceState: movieSliceType = {movies:[],moviesByGenre:[],total_pages:0};
 
 
-const loadMovies = createAsyncThunk(
-    "loadMovies", async (_, thunkApi) => {
-        const movies = await getMovies();
-        return thunkApi.fulfillWithValue(movies.results);
+const loadMovies = createAsyncThunk<IMoviesResponseModel,number>(
+    "loadMovies",
+    async (page, thunkApi) => {
+        const movies = await getMovies(page);
+        return thunkApi.fulfillWithValue(movies);
 
     }
 );
-export const loadMoviesByGenre = createAsyncThunk(
+
+
+ const loadMoviesByGenre = createAsyncThunk(
     "loadMoviesByGenre",
     async (genreId: number, thunkAPI) => {
         const moviesByGenre = await getMoviesByGenre(genreId);
@@ -26,13 +31,16 @@ export const loadMoviesByGenre = createAsyncThunk(
 );
 
 
+
+
 const movieSlice = createSlice({
     name:'movieSlice',
     initialState:initMovieSliceState,
     reducers:{},
     extraReducers:builder => builder
-        .addCase(loadMovies.fulfilled, (state, action: PayloadAction<IMovie[]>) => {
-            state.movies = action.payload;
+        .addCase(loadMovies.fulfilled, (state, action: PayloadAction<IMoviesResponseModel>) => {
+            state.movies = action.payload.results;
+            state.total_pages = action.payload.total_pages;
         })
         .addCase(loadMoviesByGenre.fulfilled, (state, action: PayloadAction<IMovie[]>) => {
             state.moviesByGenre = action.payload;

@@ -18,8 +18,8 @@ axiosInstance.interceptors.request.use((request) => {
     });
 
 
-export const getMovies = async ():Promise<IMoviesResponseModel> => {
-    const {data} = await axiosInstance.get<IMoviesResponseModel>(`/discover/movie`);
+export const getMovies = async (page: number):Promise<IMoviesResponseModel> => {
+    const {data} = await axiosInstance.get<IMoviesResponseModel>(`/discover/movie?page=${page}`);
     return data;
 }
 
