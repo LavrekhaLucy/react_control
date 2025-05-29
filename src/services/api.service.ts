@@ -18,8 +18,12 @@ axiosInstance.interceptors.request.use((request) => {
     });
 
 
-export const getMovies = async (page: number):Promise<IMoviesResponseModel> => {
-    const {data} = await axiosInstance.get<IMoviesResponseModel>(`/discover/movie?page=${page}`);
+
+
+export const getMovies = async (page: string):Promise<IMoviesResponseModel> => {
+    const limit=20;
+    const skip = limit*(+page)-limit;
+    const {data}= await axiosInstance.get<IMoviesResponseModel>(`/discover/movie`+'?skip='+skip);
     return data;
 }
 

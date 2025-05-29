@@ -8,11 +8,12 @@ type GenreBadgeTypeProps={
 
 const GenreBadge:FC<GenreBadgeTypeProps> = ({ name,id,onClick }) => {
     return (
-        <div onClick={() => onClick(id)}
-             className="
+        <div className="
               px-3 py-1 bg-blue-100 text-blue-800 text-xl
-              rounded-full shadow-sm hover:bg-blue-200 transition ">
+              rounded-full shadow-sm hover:bg-blue-200 transition " onClick={() => onClick(id)}
+        >
             {name}
+
     </div>
 
     );

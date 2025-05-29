@@ -26,7 +26,7 @@ export const GenreComponent = () => {
         <div>
 
                 {
-                   genres.map((genre) => <GenreBadge key={genre.id} id={genre.id} name={genre.name} onClick={handleGenreClick}/>)
+                   genres.map((genre) =><GenreBadge key={genre.id} id={genre.id} name={genre.name} onClick={handleGenreClick}/> )
                 }
 
         </div>

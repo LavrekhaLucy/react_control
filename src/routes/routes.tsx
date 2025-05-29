@@ -3,6 +3,7 @@ import MoviesPage from "../pages/MoviesPage.tsx";
 import MovieDetailsPage from "../pages/MovieDetailsPage.tsx";
 import App from "../App.tsx";
 import {MainPage} from "../pages/MainPage.tsx";
+import {PaginationPage} from "../pages/PaginationPage.tsx";
 
 
 export const routes = createBrowserRouter([
@@ -10,9 +11,13 @@ export const routes = createBrowserRouter([
         path: "/",
         element: <App />,
         children: [
-            {path:"genre/movie/list",element:<MainPage/>},
-            { path: "movie", element: <MoviesPage /> },
-            { path: "movie/:id", element: <MovieDetailsPage /> },
+            {path:"", element:<PaginationPage/>, children:[
+                    {path:"genre/movie/list",element:<MainPage/>},
+                    { path: "movie", element: <MoviesPage /> },
+                    { path: "movie/:id", element: <MovieDetailsPage /> },
+                ]
+            }
+
             // { path: "movie/:id/posters", element: <PosterPreview /> },
 
         ],

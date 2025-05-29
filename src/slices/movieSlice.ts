@@ -5,16 +5,16 @@ import type {IMoviesResponseModel} from "../models/IMovies/IMoviesResponseModel.
 
 
 type movieSliceType = {
-    movies: IMovie[];
-    total_pages: number;
+    moviesPage: IMoviesResponseModel | null;
+    movies:IMovie[]
     moviesByGenre: IMovie[]
 };
-const initMovieSliceState: movieSliceType = {movies:[],moviesByGenre:[],total_pages:0};
+const initMovieSliceState: movieSliceType = {moviesPage:null, movies:[],moviesByGenre:[]};
 
 
-const loadMovies = createAsyncThunk<IMoviesResponseModel,number>(
+const loadMovies = createAsyncThunk(
     "loadMovies",
-    async (page, thunkApi) => {
+    async (page:string, thunkApi) => {
         const movies = await getMovies(page);
         return thunkApi.fulfillWithValue(movies);
 
@@ -40,7 +40,7 @@ const movieSlice = createSlice({
     extraReducers:builder => builder
         .addCase(loadMovies.fulfilled, (state, action: PayloadAction<IMoviesResponseModel>) => {
             state.movies = action.payload.results;
-            state.total_pages = action.payload.total_pages;
+            state.moviesPage = action.payload;
         })
         .addCase(loadMoviesByGenre.fulfilled, (state, action: PayloadAction<IMovie[]>) => {
             state.moviesByGenre = action.payload;

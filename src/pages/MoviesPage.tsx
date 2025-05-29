@@ -1,6 +1,5 @@
 import MoviesList from "../components/movies-list/MoviesList.tsx";
 import {Outlet} from "react-router-dom";
-import Pagination from "../pagination/Pagination.tsx";
 
 
 const MoviesPage = () => {
@@ -9,7 +8,7 @@ const MoviesPage = () => {
 
             <MoviesList/>
             <Outlet/>
-            <Pagination/>
+
 
 
         </div>

@@ -12,7 +12,7 @@ export const MainPage = () => {
 
 
 
-            {/* Тут можна додати MoviesList або інші блоки */}
+
         </div>
     );
 };
