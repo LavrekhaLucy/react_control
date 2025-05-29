@@ -17,7 +17,8 @@ const MoviesList = () => {
         const currentPage =searchParams.get("page") || '1';
 
         dispatch(movieActions.loadMovies(currentPage));
-        console.log(currentPage);
+
+
 
     },[dispatch,searchParams]);
 
@@ -28,14 +29,18 @@ const MoviesList = () => {
     // }
 
     return (
-        <div>
-            <div style={{display: 'flex', justifyContent: 'center',alignItems: 'center'}}>
-                <h1 className='font-serif text-5xl text-gray-800'>Popular Movies</h1>
-            </div>
+        <div style={{display: 'flex', justifyContent: 'center',alignItems: 'center', flexDirection: 'row',flexWrap: 'wrap',gap:'15px'}}>
+            
+            {/*<div style={{display: 'flex', justifyContent: 'center',alignItems: 'center'}}>*/}
+            {/*    <h1 className='font-serif text-5xl text-gray-800'>Popular Movies</h1>*/}
+            {/*</div>*/}
 
-                { movies &&
-                    movies.map((movie) => <MovieList key={movie.id} movie = {movie}/>)
-                }
+
+
+                {movies &&
+                movies.map((movie) => <MovieList key={movie.id} movie={movie}/>)
+            }
+
 
 
         </div>

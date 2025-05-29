@@ -1,15 +1,16 @@
 import {createAsyncThunk, createSlice, type PayloadAction} from "@reduxjs/toolkit";
-import {getMovies, getMoviesByGenre} from "../services/api.service.ts";
+import {getMovies, getMoviesByGenre, searchMovies} from "../services/api.service.ts";
 import type {IMovie} from "../models/IMovies/IMovie.ts";
 import type {IMoviesResponseModel} from "../models/IMovies/IMoviesResponseModel.ts";
 
 
 type movieSliceType = {
-    moviesPage: IMoviesResponseModel | null;
-    movies:IMovie[]
-    moviesByGenre: IMovie[]
+    moviesPage: IMoviesResponseModel | null,
+    movies:IMovie[],
+    moviesByGenre: IMovie[],
+    searchResults: IMovie[];
 };
-const initMovieSliceState: movieSliceType = {moviesPage:null, movies:[],moviesByGenre:[]};
+const initMovieSliceState: movieSliceType = {moviesPage:null, movies:[],moviesByGenre:[],searchResults:[]};
 
 
 const loadMovies = createAsyncThunk(
@@ -29,6 +30,14 @@ const loadMovies = createAsyncThunk(
         return thunkAPI.fulfillWithValue(moviesByGenre);
     }
 );
+ const loadMoviesBySearch = createAsyncThunk(
+    "loadMoviesBySearch",
+    async (query: string) => {
+        const data = await searchMovies(query);
+        return data.results;
+    }
+);
+
 
 
 
@@ -45,10 +54,13 @@ const movieSlice = createSlice({
         .addCase(loadMoviesByGenre.fulfilled, (state, action: PayloadAction<IMovie[]>) => {
             state.moviesByGenre = action.payload;
         })
+        .addCase(loadMoviesBySearch.fulfilled, (state, action) => {
+    state.searchResults = action.payload;
+})
 
 
 })
 
-export const movieActions = {...movieSlice.actions, loadMovies,loadMoviesByGenre};
+export const movieActions = {...movieSlice.actions, loadMovies,loadMoviesByGenre,loadMoviesBySearch};
 
 export default movieSlice;
