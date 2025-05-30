@@ -37,7 +37,13 @@ const loadMovies = createAsyncThunk(
         return data.results;
     }
 );
-
+// export const loadMoviesBySearch = createAsyncThunk(
+//     "movieSlice/loadMoviesBySearch",
+//     async (query: string) => {
+//         const data = await searchMovies(query);
+//         return data.results; // або повністю data
+//     }
+// );
 
 
 
@@ -57,6 +63,19 @@ const movieSlice = createSlice({
         .addCase(loadMoviesBySearch.fulfilled, (state, action) => {
     state.searchResults = action.payload;
 })
+
+    // const movieSlice = createSlice({
+    //     name: "movieSlice",
+    //     initialState: { searchResults: [] },
+    //     reducers: {},
+    //     extraReducers: builder => {
+    //         builder.addCase(loadMoviesBySearch.fulfilled, (state, action) => {
+    //             state.searchResults = action.payload;
+    //         });
+    //     },
+    // });
+
+
 
 
 })

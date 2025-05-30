@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { useAppDispatch } from "../store/store";
+import {useAppDispatch, useAppSelector} from "../store/store";
 import { movieActions } from "../../slices/movieSlice";
+import {MovieList} from "../movies-list/movie-list/MovieList.tsx";
 
 const Header = () => {
     const dispatch = useAppDispatch();
@@ -16,13 +17,15 @@ const Header = () => {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         handleSearch();
-    };
+    };const searchResults = useAppSelector(state => state.movieStoreSlice.searchResults);
+
+
 
     return (
         <div className="w-full">
             <header className="bg-gradient-to-b from-purple-900 to-blue-900 p-4 flex items-center justify-between">
                 {/* Логотип */}
-                <div className="text-xl font-bold text-white">🎬 The Movies App</div>
+                <div className="text-xl font-bold text-white"> The Movies App</div>
 
                 {/* Форма пошуку */}
                 <form onSubmit={handleSubmit} className="relative w-80">
@@ -33,6 +36,18 @@ const Header = () => {
                         placeholder="Пошук фільму..."
                         className="bg-white h-10 w-full px-10 pr-4 rounded-full text-sm focus:outline-none border"
                     />
+                    {searchResults.length > 0 && (
+                        <section>
+                            <h2>Результати пошуку:</h2>
+                            <div>{searchResults.map(movie => (
+                                <MovieList key={movie.id} movie={movie}/>
+                            ))}</div>
+                        </section>
+                    )}
+
+
+
+
                     <button
                         type="submit"
                         className="absolute left-3 top-1/2 transform -translate-y-1/2"

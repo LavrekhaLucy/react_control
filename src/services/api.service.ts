@@ -63,6 +63,11 @@ export const searchMovies = async (query: string): Promise<IMoviesResponseModel>
     return data;
 };
 
-
+// export const searchMovies = async (query: string): Promise<IMoviesResponseModel> => {
+//     const { data } = await axiosInstance.get("/search/movie", {
+//         params: { query },
+//     });
+//     return data;
+// };
 
 
