@@ -44,7 +44,7 @@ const PaginationComponent = () => {
     const visiblePages = createPageNumbers();
 
     return (
-        <div className="flex justify-center items-center gap-2 mt-6 mb-6 flex-wrap">
+        <div className="flex justify-center items-center gap-2 mt-14 mb-18 flex-wrap">
             <button className="px-3 py-1 border rounded hover:bg-purple-100 "
                 onClick={()=>{
                     if (currentPage >= 1){
@@ -74,7 +74,7 @@ const PaginationComponent = () => {
             <button className="px-3 py-1 border rounded hover:bg-purple-100 disabled:opacity-50"
 
             onClick={() =>{
-                if (currentPage >= totalPages){
+                if (currentPage <= totalPages){
                     goToPage(++currentPage)}
              }}>
                 Next

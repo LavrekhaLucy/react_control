@@ -7,6 +7,7 @@ type GenreBadgeTypeProps={
 }
 
 const GenreBadge:FC<GenreBadgeTypeProps> = ({ name,id,onClick }) => {
+
     return (
         <div className="
               px-3 py-1 bg-blue-100 text-blue-800 text-xl
@@ -20,3 +21,4 @@ const GenreBadge:FC<GenreBadgeTypeProps> = ({ name,id,onClick }) => {
 };
 
 export default GenreBadge;
+

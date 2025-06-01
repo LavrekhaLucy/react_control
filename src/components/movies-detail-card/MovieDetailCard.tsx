@@ -1,55 +1,43 @@
-import {useEffect} from "react";
-import {useAppDispatch, useAppSelector} from "../store/store.ts";
-import {movieDetailActions} from "../../slices/movieDetailSlice.ts";
-import {useParams} from "react-router-dom";
+import type {FC} from "react";
+import type {IMovie} from "../../models/IMovies/IMovie.ts";
+import {Link} from "react-router-dom";
+
+import StarRatings from "react-star-ratings";
+import {IMAGE_BASE_URL} from "../user-info/UserInfo.ts";
 
 
+type MoviePropsType = {
+    movie: IMovie,
+}
 
-export const MovieDetailCard = () => {
+export const MovieDetailCard:FC<MoviePropsType> = ({movie}) => (
+    <Link to={`/movie/${movie.id}`}>
+    <div
+        className="w-48 h-[400px] bg-white rounded-xl shadow-md overflow-hidden cursor-pointer
+             transform transition-transform duration-[2000ms] hover:scale-110 hover:shadow-2xl">
 
-    const dispatch = useAppDispatch();
-    const{id}=useParams();
-    const movie = useAppSelector(state => state.movieDetailStoreSlice.movie);
+        <img
+            src={`${IMAGE_BASE_URL}/w500${movie.poster_path}`}
+            alt={movie.title}
+            className="w-full h-70 object-cover"/>
 
-    useEffect(() => {
-        if (id) {
-            dispatch(movieDetailActions.loadMovie(Number(id)));
-        }
+        <div className="p-3 text-center">
+            <h3 className="text-base font-semibold text-gray-800 truncate">{movie.title}</h3>
+            <p className="text-base font-semibold text-gray-800 truncate">{movie.release_date}</p>
 
-    }, [dispatch, id]);
-
-    if (!movie) return <p>Loading...</p>;
-
-
-
-
-    return (
-        <div>
-            <div style={{
-                display: 'flex',
-                gap: '2rem',
-                padding: '2rem',
-                border: '2px solid #FFD700',
-                borderRadius: '1.5rem',
-                background: '#fefcea',
-                boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
-            }}>
-                <img
-                    src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                    alt={movie.title}
-                    style={{ width: '400px', borderRadius: '1rem' }}
-                />
-
-                <div>
-                    <h1 style={{ fontSize: '2rem', color: '#003399' }}>{movie.title}</h1>
-                    <p><strong>Overview:</strong>{movie.overview}</p>
-                    <p><strong>Popularity:</strong> {movie.popularity}</p>
-                    <p><strong>Rating:</strong> {movie.vote_average} </p>
-                </div>
-            </div>
-
+            <StarRatings
+                    rating={movie.vote_average / 2}
+                    starRatedColor="#facc15"
+                    starEmptyColor="#e5e7eb"
+                    starDimension="20px"
+                    starSpacing="2px"
+                    numberOfStars={5}
+                    name={`rating-${movie.id}`}/>
         </div>
 
-    );
-};
+    </div>
+    </Link>
+)
+
+
 

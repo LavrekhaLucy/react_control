@@ -18,17 +18,18 @@ const loadMovie = createAsyncThunk(
 );
 
 
-const movieDetailSlice = createSlice({
+const movieInfoSlice = createSlice({
     name:'movieSlice',
     initialState:initMovieSliceState,
     reducers:{},
-    extraReducers:builder => builder.addCase(loadMovie.fulfilled,(state, action:PayloadAction<IMovie>)=>{
+    extraReducers:builder => builder
+        .addCase(loadMovie.fulfilled,(state, action:PayloadAction<IMovie>)=>{
         state.movie = action.payload;
     }),
 
 
 })
 
-export const movieDetailActions = {...movieDetailSlice.actions, loadMovie};
+export const movieInfoActions = {...movieInfoSlice.actions, loadMovie};
 
-export default movieDetailSlice;
+export default movieInfoSlice;

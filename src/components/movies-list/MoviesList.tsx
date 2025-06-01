@@ -1,7 +1,7 @@
 import {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from "../store/store.ts";
 import {movieActions} from "../../slices/movieSlice.ts";
-import {MovieList} from "./movie-list/MovieList.tsx";
+import {MovieDetailCard} from "../movies-detail-card/MovieDetailCard.tsx";
 import {useSearchParams} from "react-router-dom";
 
 
@@ -29,7 +29,7 @@ const MoviesList = () => {
             
 
                 {movies &&
-                movies.map((movie) => <MovieList key={movie.id} movie={movie}/>)
+                movies.map((movie) => <MovieDetailCard key={movie.id} movie={movie}/>)
             }
 
 

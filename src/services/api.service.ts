@@ -2,7 +2,6 @@ import axios from 'axios';
 import {API_KEY, BASE_URL} from "../components/user-info/UserInfo.ts";
 import type {IMoviesResponseModel} from "../models/IMovies/IMoviesResponseModel.ts";
 import type {IMovie} from "../models/IMovies/IMovie.ts";
-import type {IPosterResponseModel} from "../models/IImages/IPosterResponseModel.ts";
 import type {IGenresResponseModel} from "../models/IGenres/IGenresResponseModel.ts";
 
 
@@ -37,10 +36,10 @@ export const getMovie = async (id:number):Promise<IMovie> => {
 }
 
 
-export const getImage = async (id:number):Promise<IPosterResponseModel> => {
-    const {data} = await axiosInstance.get<IPosterResponseModel>(`/movie/${id}/images`);
-    return data;
-}
+// export const getImage = async (id:number):Promise<IPosterResponseModel> => {
+//     const {data} = await axiosInstance.get<IPosterResponseModel>(`/movie/${id}/images`);
+//     return data;
+// }
 
 
 
@@ -63,11 +62,5 @@ export const searchMovies = async (query: string): Promise<IMoviesResponseModel>
     return data;
 };
 
-// export const searchMovies = async (query: string): Promise<IMoviesResponseModel> => {
-//     const { data } = await axiosInstance.get("/search/movie", {
-//         params: { query },
-//     });
-//     return data;
-// };
 
 
