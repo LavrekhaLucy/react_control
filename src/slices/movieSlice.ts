@@ -4,13 +4,19 @@ import type {IMovie} from "../models/IMovies/IMovie.ts";
 import type {IMoviesResponseModel} from "../models/IMovies/IMoviesResponseModel.ts";
 
 
+
 type movieSliceType = {
     moviesPage: IMoviesResponseModel | null,
     movies:IMovie[],
     moviesByGenre: IMovie[],
     searchResults: IMovie[];
+    searchPage:number;
+    totalSearchPages: number;
+    searchQuery: string;
 };
-const initMovieSliceState: movieSliceType = {moviesPage:null, movies:[],moviesByGenre:[],searchResults:[]};
+
+
+const initMovieSliceState: movieSliceType = {moviesPage:null, movies:[],moviesByGenre:[],searchResults:[],searchPage:1, searchQuery:'', totalSearchPages:0};
 
 
 const loadMovies = createAsyncThunk(
@@ -32,16 +38,16 @@ const loadMovies = createAsyncThunk(
 );
  const loadMoviesBySearch = createAsyncThunk(
     "loadMoviesBySearch",
-    async (query: string) => {
-        const data = await searchMovies(query);
-        return data.results;
-    }
+     async ({ query, page }: { query: string; page: number }, thunkAPI) => {
+         const results = await searchMovies(query, page);
+         return thunkAPI.fulfillWithValue(results);
+     }
 );
 // export const loadMoviesBySearch = createAsyncThunk(
-//     "movieSlice/loadMoviesBySearch",
-//     async (query: string) => {
-//         const data = await searchMovies(query);
-//         return data.results; // або повністю data
+//     "movies/loadBySearch",
+//     async ({ query, page }: { query: string; page: number }, thunkAPI) => {
+//         const results = await searchMovies(query, page);
+//         return thunkAPI.fulfillWithValue(results);
 //     }
 // );
 
@@ -60,23 +66,17 @@ const movieSlice = createSlice({
         .addCase(loadMoviesByGenre.fulfilled, (state, action: PayloadAction<IMovie[]>) => {
             state.moviesByGenre = action.payload;
         })
-        .addCase(loadMoviesBySearch.fulfilled, (state, action) => {
-    state.searchResults = action.payload;
+        .addCase(loadMoviesBySearch.fulfilled, (state, action:PayloadAction<IMoviesResponseModel>) => {
+    state.searchResults = action.payload.results;
+    state.searchPage = action.payload.page;
+    state.totalSearchPages = action.payload.total_pages;
 })
 
-    // const movieSlice = createSlice({
-    //     name: "movieSlice",
-    //     initialState: { searchResults: [] },
-    //     reducers: {},
-    //     extraReducers: builder => {
-    //         builder.addCase(loadMoviesBySearch.fulfilled, (state, action) => {
-    //             state.searchResults = action.payload;
-    //         });
-    //     },
-    // });
-
-
-
+        // .addCase(loadMoviesBySearch.fulfilled, (state, action: PayloadAction<IMoviesResponseModel>) => {
+        //     state.searchResults = action.payload.results;
+        //     state.searchPage = action.payload.page;
+        //     state.totalSearchPages = action.payload.total_pages;
+        // })
 
 })
 

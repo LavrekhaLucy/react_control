@@ -3,6 +3,7 @@ import {useAppDispatch, useAppSelector} from "../store/store.ts";
 
 import {useParams} from "react-router-dom";
 import {movieInfoActions} from "../../slices/movieInfoSlice.ts";
+import {IMAGE_BASE_URL} from "../user-info/UserInfo.ts";
 
 
 export const MovieInfo = () => {
@@ -35,7 +36,7 @@ export const MovieInfo = () => {
                 boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
             }}>
                 <img
-                    src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                    src={`${IMAGE_BASE_URL}/w500${movie.poster_path}`}
                     alt={movie.title}
                     style={{ width: '400px', borderRadius: '1rem' }}
                 />
@@ -48,7 +49,9 @@ export const MovieInfo = () => {
                     <p><strong>Original Language:</strong> {movie.original_language} </p>
                     <p><strong>Original title:</strong> {movie.original_title} </p>
                     <p><strong>Release date:</strong> {movie.release_date} </p>
+
                 </div>
+
 
 
 

@@ -11,10 +11,16 @@ const Header = () => {
     const handleSearch = () => {
         const trimmedQuery = query.trim();
         if (trimmedQuery.length > 0) {
-            dispatch(movieActions.loadMoviesBySearch(trimmedQuery));
+            dispatch(movieActions.loadMoviesBySearch({ query: query.trim(), page: 1 }));
             navigate("genre/movie/list");
             setQuery("");
         }
+
+        // if (trimmedQuery.length > 0) {
+        //     dispatch(movieActions.loadMoviesBySearch(trimmedQuery));
+        //     navigate("genre/movie/list");
+        //     setQuery("");
+        // }
     };
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {

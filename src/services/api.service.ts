@@ -53,14 +53,22 @@ export const getMoviesByGenre = async (genreId: number): Promise<IMovie[]> => {
     return data.results;
 };
 
-export const searchMovies = async (query: string): Promise<IMoviesResponseModel> => {
+// export const searchMovies = async (query: string): Promise<IMoviesResponseModel> => {
+//     const { data } = await axiosInstance.get("/search/movie", {
+//         params: {
+//             query,
+//         },
+//     });
+//     return data;
+// };
+
+export const searchMovies = async (query: string, page: number = 1): Promise<IMoviesResponseModel> => {
     const { data } = await axiosInstance.get("/search/movie", {
         params: {
             query,
+            page
         },
     });
     return data;
 };
-
-
 
