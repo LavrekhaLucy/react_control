@@ -13,10 +13,11 @@ type movieSliceType = {
     searchPage:number;
     totalSearchPages: number;
     searchQuery: string;
+    totalGenrePages: number;
 };
 
 
-const initMovieSliceState: movieSliceType = {moviesPage:null, movies:[],moviesByGenre:[],searchResults:[],searchPage:1, searchQuery:'', totalSearchPages:0};
+const initMovieSliceState: movieSliceType = {moviesPage:null, movies:[],moviesByGenre:[],searchResults:[],searchPage:1, searchQuery:'', totalSearchPages:0, totalGenrePages:0};
 
 
 const loadMovies = createAsyncThunk(
@@ -31,8 +32,8 @@ const loadMovies = createAsyncThunk(
 
  const loadMoviesByGenre = createAsyncThunk(
     "loadMoviesByGenre",
-    async (genreId: number, thunkAPI) => {
-        const moviesByGenre = await getMoviesByGenre(genreId);
+    async ({genreId,page,sort}: { genreId: number, page: number, sort: string },  thunkAPI) => {
+        const moviesByGenre = await getMoviesByGenre(genreId,page,sort);
         return thunkAPI.fulfillWithValue(moviesByGenre);
     }
 );
@@ -63,8 +64,12 @@ const movieSlice = createSlice({
             state.movies = action.payload.results;
             state.moviesPage = action.payload;
         })
-        .addCase(loadMoviesByGenre.fulfilled, (state, action: PayloadAction<IMovie[]>) => {
-            state.moviesByGenre = action.payload;
+        // .addCase(loadMoviesByGenre.fulfilled, (state, action: PayloadAction<IMovie[]>) => {
+        //     state.moviesByGenre = action.payload;
+        // })
+        .addCase(loadMoviesByGenre.fulfilled, (state, action: PayloadAction<IMoviesResponseModel>) => {
+            state.moviesByGenre = action.payload.results;
+            state.totalGenrePages = action.payload.total_pages;
         })
         .addCase(loadMoviesBySearch.fulfilled, (state, action:PayloadAction<IMoviesResponseModel>) => {
     state.searchResults = action.payload.results;
@@ -72,11 +77,7 @@ const movieSlice = createSlice({
     state.totalSearchPages = action.payload.total_pages;
 })
 
-        // .addCase(loadMoviesBySearch.fulfilled, (state, action: PayloadAction<IMoviesResponseModel>) => {
-        //     state.searchResults = action.payload.results;
-        //     state.searchPage = action.payload.page;
-        //     state.totalSearchPages = action.payload.total_pages;
-        // })
+
 
 })
 

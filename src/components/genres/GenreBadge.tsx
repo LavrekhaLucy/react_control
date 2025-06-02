@@ -1,24 +1,22 @@
-import type {FC} from "react";
+import type { FC } from "react";
 
-type GenreBadgeTypeProps={
+type GenreBadgeTypeProps = {
     name: string;
     id: number;
-    onClick: (id: number) => void;
-}
+    onClick: (genreId: number, page: number, sort: string) => void;
+};
 
-const GenreBadge:FC<GenreBadgeTypeProps> = ({ name,id,onClick }) => {
-
+const GenreBadge: FC<GenreBadgeTypeProps> = ({ name, id, onClick }) => {
     return (
-        <div className="
-              px-3 py-1 bg-blue-100 text-blue-800 text-xl
-              rounded-full shadow-sm hover:bg-blue-200 transition " onClick={() => onClick(id)}
+        <div
+            className="
+        px-3 py-1 bg-blue-100 text-blue-800 text-xl
+        hover:bg-blue-200 rounded-full font-medium transition whitespace-nowrap inline-block m-2 cursor-pointer"
+            onClick={() => onClick(id, 1, "popularity.desc")} // 👈 Додаємо page і sort
         >
             {name}
-
-    </div>
-
+        </div>
     );
 };
 
 export default GenreBadge;
-
