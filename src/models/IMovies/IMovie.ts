@@ -1,3 +1,5 @@
+import type {IGenre} from "../IGenres/IGenre.ts";
+
 export interface IMovie {
 
   adult: boolean;
@@ -14,5 +16,5 @@ export interface IMovie {
   video: boolean;
   vote_average: number;
   vote_count: number;
-
+   genres: IGenre[];
 }

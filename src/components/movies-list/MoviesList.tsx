@@ -8,9 +8,7 @@ import {useSearchParams} from "react-router-dom";
 const MoviesList = () => {
 
     const dispatch = useAppDispatch();
-
     const movies = useAppSelector(state => state.movieStoreSlice.movies);
-
     const [searchParams]=useSearchParams({page:'1'});
 
     useEffect(()=>{
@@ -18,21 +16,16 @@ const MoviesList = () => {
 
         dispatch(movieActions.loadMovies(currentPage));
 
-
-
     },[dispatch,searchParams]);
 
 
 
     return (
         <div style={{display: 'flex', justifyContent: 'center',alignItems: 'center', flexDirection: 'row',flexWrap: 'wrap',gap:'15px'}}>
-            
 
                 {movies &&
                 movies.map((movie) => <MovieDetailCard key={movie.id} movie={movie}/>)
             }
-
-
 
         </div>
     );

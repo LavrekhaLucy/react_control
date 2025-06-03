@@ -1,26 +1,34 @@
 import {useEffect} from "react";
 import {useAppDispatch, useAppSelector} from "../store/store.ts";
-
 import {useParams} from "react-router-dom";
 import {movieInfoActions} from "../../slices/movieInfoSlice.ts";
 import {IMAGE_BASE_URL} from "../user-info/UserInfo.ts";
+import {genreActions} from "../../slices/genreSlice.ts";
 
 
 export const MovieInfo = () => {
 
     const dispatch=useAppDispatch();
     const{id} = useParams();
+
     const movie = useAppSelector(state => state.movieInfoStoreSlice.movie);
+    const genres = useAppSelector(state => state.genreStoreSlice.genres);
+
+
 
     useEffect(() => {
-        if (id) {
-            dispatch(movieInfoActions.loadMovie(Number(id)));
-
-        }
-
+        if (id) dispatch(movieInfoActions.loadMovie(Number(id)));
     }, [dispatch, id]);
 
+    useEffect(() => {
+        if (!genres || genres.length === 0) {
+            dispatch(genreActions.loadGenres());
+        }
+    }, [dispatch, genres]);
+
     if (!movie) return <p>Loading...</p>;
+
+
 
 
 
@@ -49,6 +57,8 @@ export const MovieInfo = () => {
                     <p><strong>Original Language:</strong> {movie.original_language} </p>
                     <p><strong>Original title:</strong> {movie.original_title} </p>
                     <p><strong>Release date:</strong> {movie.release_date} </p>
+                    <p><strong>Genres:</strong> {movie.genres?.map((g) => g.name).join(", ")}</p>
+
 
                 </div>
 

@@ -14,6 +14,7 @@ type movieSliceType = {
     totalSearchPages: number;
     searchQuery: string;
     totalGenrePages: number;
+    // currentSearchQuery: string;
 };
 
 
@@ -44,15 +45,16 @@ const loadMovies = createAsyncThunk(
          return thunkAPI.fulfillWithValue(results);
      }
 );
-// export const loadMoviesBySearch = createAsyncThunk(
-//     "movies/loadBySearch",
+
+// const loadMoviesBySearch = createAsyncThunk(
+//     "loadMoviesBySearch",
 //     async ({ query, page }: { query: string; page: number }, thunkAPI) => {
 //         const results = await searchMovies(query, page);
-//         return thunkAPI.fulfillWithValue(results);
+//         // Повертаємо результат з query
+//         return thunkAPI.fulfillWithValue(){ ...results, searchQuery: query };
 //     }
 // );
-
-
+// //
 
 
 const movieSlice = createSlice({
@@ -64,9 +66,7 @@ const movieSlice = createSlice({
             state.movies = action.payload.results;
             state.moviesPage = action.payload;
         })
-        // .addCase(loadMoviesByGenre.fulfilled, (state, action: PayloadAction<IMovie[]>) => {
-        //     state.moviesByGenre = action.payload;
-        // })
+
         .addCase(loadMoviesByGenre.fulfilled, (state, action: PayloadAction<IMoviesResponseModel>) => {
             state.moviesByGenre = action.payload.results;
             state.totalGenrePages = action.payload.total_pages;
@@ -75,12 +75,13 @@ const movieSlice = createSlice({
     state.searchResults = action.payload.results;
     state.searchPage = action.payload.page;
     state.totalSearchPages = action.payload.total_pages;
-})
-
-
 
 })
 
-export const movieActions = {...movieSlice.actions, loadMovies,loadMoviesByGenre,loadMoviesBySearch};
+
+
+})
+
+export const movieActions = {...movieSlice.actions, loadMovies,loadMoviesByGenre,loadMoviesBySearch,};
 
 export default movieSlice;

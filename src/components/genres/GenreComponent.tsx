@@ -1,41 +1,6 @@
-// import {useAppDispatch, useAppSelector} from "../store/store.ts";
-// import {useEffect} from "react";
-// import {genreActions} from "../../slices/genreSlice.ts";
-// import GenreBadge from "./GenreBadge.tsx";
-// import {movieActions} from "../../slices/movieSlice.ts";
-//
-// export const GenreComponent = () => {
-//     const dispatch = useAppDispatch();
-//     const genres = useAppSelector(state => state.genreStoreSlice.genres);
-//
-//     const handleGenreClick = (genreId:number, page:number, sort:string) => {
-//         dispatch(movieActions.loadMoviesByGenre({genreId, page, sort}));
-//     };
-//     useEffect(()=>{
-//
-//         dispatch(genreActions.loadGenres());
-//
-//     },[dispatch]);
-//
-//     if (!genres || genres.length === 0) {
-//         return <p className="text-center text-gray-500">Завантаження жанрів...</p>;
-//     }
-//
-//
-//     return (
-//         <div>
-//
-//                 {
-//                    genres.map((genre) =><GenreBadge key={genre.id} id={genre.id} name={genre.name} onClick={handleGenreClick}/> )
-//                 }
-//
-//         </div>
-//     );
-// };
 import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../store/store";
-
 import GenreBadge from "./GenreBadge";
 import {genreActions} from "../../slices/genreSlice.ts";
 import {movieActions} from "../../slices/movieSlice.ts";
@@ -47,7 +12,6 @@ export const GenreComponent = () => {
     const dispatch = useAppDispatch();
     const genres = useAppSelector((state) => state.genreStoreSlice.genres);
     const moviesByGenre = useAppSelector((state) => state.movieStoreSlice.moviesByGenre);
-    // const totalGenrePages = useAppSelector((state) => state.movieStoreSlice.totalGenrePages);
 
     const [searchParams, setSearchParams] = useSearchParams();
     const genreId = Number(searchParams.get("genreId"));
@@ -74,7 +38,7 @@ export const GenreComponent = () => {
     };
 
     if (!genres || genres.length === 0) {
-        return <p className="text-center text-gray-500">Завантаження жанрів...</p>;
+        return <p className="text-center text-gray-500">Loading genres...</p>;
     }
 
     return (
@@ -97,12 +61,12 @@ export const GenreComponent = () => {
                     onChange={handleSortChange}
                     className="border rounded px-2 py-1"
                 >
-                    <option value="popularity.desc">Popularity ↓</option>
-                    <option value="popularity.asc">Popularity ↑</option>
-                    <option value="vote_average.desc">Rating ↓</option>
-                    <option value="vote_average.asc">Rating ↑</option>
-                    <option value="release_date.desc">Newest</option>
-                    <option value="release_date.asc">Oldest</option>
+                    <option value="popularity.desc"> Popularity ↑ </option>
+                    <option value="popularity.asc"> Popularity ↓ </option>
+                    <option value="vote_average.desc"> Rating ↑ </option>
+                    <option value="vote_average.asc"> Rating ↓ </option>
+                    <option value="release_date.desc"> Newest </option>
+                    <option value="release_date.asc"> Oldest </option>
                 </select>
             </div>
 
@@ -112,9 +76,6 @@ export const GenreComponent = () => {
                 ))}
             </div>
 
-            {/*<div className="mt-6">*/}
-            {/*    <PaginationWithParams totalPages={totalGenrePages} paramKey="page" />*/}
-            {/*</div>*/}
         </div>
     );
 };

@@ -49,6 +49,7 @@ const GenrePage = () => {
     return (
         <div>
             <GenreComponent/>
+
         </div>
     );
 };
