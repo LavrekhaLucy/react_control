@@ -12,6 +12,7 @@ const Header = () => {
     const handleSearch = () => {
         const trimmedQuery = query.trim();
         if (trimmedQuery.length > 0) {
+            dispatch(movieActions.setQuery(trimmedQuery));
             dispatch(movieActions.loadMoviesBySearch({ query: query.trim(), page: 1 }));
             navigate("search/movie");
             setQuery("");

@@ -10,10 +10,6 @@ const MoviesPage = () => {
             <MoviesList/>
             <Outlet/>
 
-
-
-
-
         </div>
     );
 };

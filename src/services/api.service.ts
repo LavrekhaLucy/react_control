@@ -12,12 +12,9 @@ const axiosInstance = axios.create({
 })
 
 axiosInstance.interceptors.request.use((request) => {
-///чи потрібний інтерцептор????/////
+
         return request;
     });
-
-
-
 
 export const getMovies = async (page: string):Promise<IMoviesResponseModel> => {
 
@@ -36,33 +33,11 @@ export const getMovie = async (id:number):Promise<IMovie> => {
 }
 
 
-// export const getImage = async (id:number):Promise<IPosterResponseModel> => {
-//     const {data} = await axiosInstance.get<IPosterResponseModel>(`/movie/${id}/images`);
-//     return data;
-// }
-
-
-
 export const getGenres = async ():Promise<IGenresResponseModel> => {
     const {data} = await axiosInstance.get<IGenresResponseModel>(`/genre/movie/list?language=en`);
     return data;
 }
 
-// export const getMoviesByGenre = async (genreId: number): Promise<IMovie[]> => {
-//     const {data} = await axiosInstance.get(`/movie_with_genres=${genreId}`);
-//     return data.results;
-// };
-
-// export const getMoviesByGenre = async (genreId: number, page: number = 1, sort:string): Promise<IMoviesResponseModel> => {
-//     const { data } = await axiosInstance.get("/discover/movie", {
-//         params: {
-//             with_genres: genreId,
-//             page,
-//             sort_by: sort,
-//         },
-//     });
-//     return data;
-// };
 export const getMoviesByGenre = async (
     genreId: number,
     page: number = 1,
@@ -77,11 +52,6 @@ export const getMoviesByGenre = async (
     });
     return data;
 };
-
-
-
-
-
 
 export const searchMovies = async (query: string, page: number = 1): Promise<IMoviesResponseModel> => {
     const { data } = await axiosInstance.get("/search/movie", {

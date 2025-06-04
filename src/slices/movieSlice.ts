@@ -14,7 +14,7 @@ type movieSliceType = {
     totalSearchPages: number;
     searchQuery: string;
     totalGenrePages: number;
-    // currentSearchQuery: string;
+
 };
 
 
@@ -46,21 +46,13 @@ const loadMovies = createAsyncThunk(
      }
 );
 
-// const loadMoviesBySearch = createAsyncThunk(
-//     "loadMoviesBySearch",
-//     async ({ query, page }: { query: string; page: number }, thunkAPI) => {
-//         const results = await searchMovies(query, page);
-//         // Повертаємо результат з query
-//         return thunkAPI.fulfillWithValue(){ ...results, searchQuery: query };
-//     }
-// );
-// //
-
 
 const movieSlice = createSlice({
     name:'movieSlice',
     initialState:initMovieSliceState,
-    reducers:{},
+    reducers:{setQuery: (state, action: PayloadAction<string>) => {
+            state.searchQuery = action.payload;
+        }},
     extraReducers:builder => builder
         .addCase(loadMovies.fulfilled, (state, action: PayloadAction<IMoviesResponseModel>) => {
             state.movies = action.payload.results;

@@ -15,12 +15,10 @@ const SideBar = () => {
 
         <div className="flex h-screen">
 
-            {/* Sidebar */}
             <aside className="w-64 bg-gradient-to-b from-purple-900 to-blue-900 text-white p-4 flex-shrink-0 ">
                <Menu/>
             </aside>
 
-            {/* Основна частина */}
             <main className="flex-1  p-6 overflow-y-auto bg-gray-50">
                 <Outlet />
 

@@ -3,7 +3,7 @@ import type { IMovie } from "../../models/IMovies/IMovie.ts";
 import { Link } from "react-router-dom";
 import StarRatings from "react-star-ratings";
 import { IMAGE_BASE_URL } from "../user-info/UserInfo.ts";
-import { useGenreNames } from "../hook/genreHook.ts"; // імпорт хука
+import { useGenreNames } from "../hook/useGenreNames.ts";
 
 type MoviePropsType = {
     movie: IMovie;
